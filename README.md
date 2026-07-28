@@ -1,8 +1,8 @@
 # Steam BI Pipeline
 
-An end-to-end Data Engineering & Business Intelligence project.
+End-to-end data pipeline and Business Intelligence project using Steam data.
 
-## Tech Stack
+## Tech stack
 
 - Python
 - Pandas
@@ -12,4 +12,5 @@ An end-to-end Data Engineering & Business Intelligence project.
 
 ## Pipeline
 
+```text
 Steam API → Python → BigQuery → Power BI
