@@ -174,7 +174,7 @@ def transform_record(
     """Transform one nested Steam record into a flat dictionary."""
 
     app_id = record.get("app_id")
-    extracted_at = record.get("extracted_at")
+    snapshot_at = record.get("snapshot_at")
 
     store_data = record.get("store_data")
     current_players_data = record.get("current_players_data")
@@ -245,7 +245,7 @@ def transform_record(
         "supports_windows": platforms.get("windows"),
         "supports_mac": platforms.get("mac"),
         "supports_linux": platforms.get("linux"),
-        "extracted_at": extracted_at,
+        "snapshot_at": snapshot_at,
     }
 
 
@@ -319,8 +319,8 @@ def apply_dataframe_types(
         errors="coerce",
     )
 
-    dataframe["extracted_at"] = pd.to_datetime(
-        dataframe["extracted_at"],
+    dataframe["snapshot_at"] = pd.to_datetime(
+        dataframe["snapshot_at"],
         utc=True,
         errors="coerce",
     )
@@ -335,7 +335,7 @@ def validate_dataframe(
         "app_id",
         "name",
         "current_players",
-        "extracted_at",
+        "snapshot_at",
     }
 
     missing_columns = required_columns.difference(

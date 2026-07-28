@@ -77,9 +77,9 @@ def load_processed_dataframe(
 
     try:
         dataframe = pd.read_csv(
-            input_path,
-            parse_dates=["release_date", "extracted_at"],
-        )
+    input_path,
+    parse_dates=["release_date", "snapshot_at"],
+)
     except (OSError, ValueError, pd.errors.ParserError) as error:
         raise BigQueryLoadError(
             f"Could not read processed file: {input_path}"
@@ -110,8 +110,8 @@ def prepare_dataframe(
         errors="coerce",
     ).dt.date
 
-    prepared["extracted_at"] = pd.to_datetime(
-        prepared["extracted_at"],
+    prepared["snapshot_at"] = pd.to_datetime(
+        prepared["snapshot_at"],
         utc=True,
         errors="raise",
     )
@@ -144,7 +144,7 @@ def get_table_schema() -> list[bigquery.SchemaField]:
         bigquery.SchemaField("supports_mac", "BOOLEAN"),
         bigquery.SchemaField("supports_linux", "BOOLEAN"),
         bigquery.SchemaField(
-            "extracted_at",
+            "snapshot_at",
             "TIMESTAMP",
             mode="REQUIRED",
         ),
