@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environment
+.venv/
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Data
+data/raw/
+data/processed/
+
+# Google Cloud
+service-account.json
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Ruff / mypy
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Build
+dist/
+build/
