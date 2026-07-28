@@ -8,7 +8,7 @@ End-to-end data pipeline and Business Intelligence project using Steam data.
 - Pandas
 - Steam API
 - Google BigQuery
-- Power BI
+- Looker Studio
 
 ## Pipeline
 
