@@ -13,7 +13,7 @@ End-to-end data pipeline and Business Intelligence project using Steam data.
 ## Pipeline
 
 ```text
-Steam API → Python → BigQuery → Power BI
+Steam API → Python → BigQuery → Looker Studio
 ```
 ## Dashboard Preview
 
