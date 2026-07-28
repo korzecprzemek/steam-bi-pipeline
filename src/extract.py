@@ -262,13 +262,16 @@ def main() -> None:
     output_file = save_raw_data(extracted_games)
 
     LOGGER.info(
-        "Extraction completed successfully. Saved raw data to %s",
-        successful_store_requests,
-        len(APP_IDS),
-        successful_player_requests,
-        len(APP_IDS),   
+    "Extraction completed successfully: "
+    "store requests=%s/%s, player requests=%s/%s",
+    successful_store_requests,
+    len(APP_IDS),
+    successful_player_requests,
+    len(APP_IDS),
     )
+
     LOGGER.info("Saved raw data to %s", output_file)
+
 
 if __name__ == "__main__":
     main()
