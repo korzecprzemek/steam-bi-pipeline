@@ -14,7 +14,7 @@ End-to-end data pipeline and Business Intelligence project using Steam data.
 
 ```text
 Steam API → Python → BigQuery → Power BI
-
+```
 ## Dashboard Preview
 
 The dashboard is built in Looker Studio and presents the latest Steam games snapshot loaded into BigQuery.
