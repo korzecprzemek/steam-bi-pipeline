@@ -157,32 +157,33 @@ def fetch_current_players(
         )
         return None
 def extract_game(
-        session: Session,
-        app_id: int
-) -> dict[str,Any] | None:
+    session: Session,
+    app_id: int,
+    snapshot_at: str,
+) -> dict[str, Any]:
     """Extract all available raw data for one Steam application."""
 
     LOGGER.info("Extracting data for app_id=%s", app_id)
 
-    extracted_at = datetime.now(tz=UTC).isoformat()
-
     store_data = fetch_game_details(session, app_id)
-
     current_players_data = fetch_current_players(session, app_id)
 
     return {
         "app_id": app_id,
-        "extracted_at": extracted_at,
+        "snapshot_at": snapshot_at,
         "store_data": store_data,
         "current_players_data": current_players_data,
     }
 
 def extract_games(
-        app_ids: list[int],
+    app_ids: list[int],
 ) -> list[dict[str, Any]]:
-    """Extract all available raw data for a list of Steam applications."""
+    """Extract Steam data for multiple applications in one snapshot."""
 
     extracted_games: list[dict[str, Any]] = []
+    snapshot_at = datetime.now(tz=UTC).isoformat()
+
+    LOGGER.info("Created snapshot: %s", snapshot_at)
 
     with create_http_session() as session:
         for index, app_id in enumerate(app_ids):
@@ -192,10 +193,16 @@ def extract_games(
                 len(app_ids),
                 app_id,
             )
-            extracted_game = extract_game(session, app_id)
-            if extracted_game:
-                extracted_games.append(extracted_game)
+
+            extracted_game = extract_game(
+                session=session,
+                app_id=app_id,
+                snapshot_at=snapshot_at,
+            )
+            extracted_games.append(extracted_game)
+
             time.sleep(REQUEST_DELAY_SECONDS)
+
     return extracted_games
 
 def save_raw_data(
@@ -219,11 +226,11 @@ def save_raw_data(
     document = {
         "metadata": {
             "source": "Steam Web API",
-            "extracted_at": datetime.now(tz=UTC).isoformat(),
+            "snapshot_at": records[0]["snapshot_at"],
             "record_count": len(records),
             "app_ids": [record["app_id"] for record in records],
         },
-        "records": records
+        "records": records,
     }
     with output_file.open(
         mode = "w",
